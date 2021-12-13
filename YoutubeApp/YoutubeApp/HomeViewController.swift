@@ -101,27 +101,14 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     navigationItem.rightBarButtonItems = [moreBarButtonItem, searchBarButtonItem]
     
   }
-  let blackView = UIView()
+  
+  var settingLauncher = settingsLauncher()
+  
   @objc func handleSearch() {
     // show menu bar
-    if let window = UIApplication.shared.windows.filter {$0.isKeyWindow}.first{
-      blackView.backgroundColor = UIColor(white: 0, alpha: 0.5)
-      blackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
-      window.addSubview(blackView)
-      blackView.frame = view.frame
-      blackView.alpha = 0
-      
-      UIView.animate(withDuration: 0.5, animations: {
-        self.blackView.alpha = 1
-      }, completion: nil)
-    }
+    settingLauncher.showSettings()
   }
   
-  @objc func  handleDismiss() {
-    UIView.animate(withDuration: 0.5, animations: {
-      self.blackView.alpha = 0
-    }, completion: nil)
-  }
   
   private func  setupMenuBar() {
     view.addSubview(menuBar)
