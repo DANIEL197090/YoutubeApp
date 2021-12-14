@@ -17,7 +17,7 @@ class MenuBar: UIView, UICollectionViewDelegateFlowLayout, UICollectionViewDeleg
     collectionView.dataSource = self
     return collectionView
   }()
- let imagesNames = ["house","square.and.pencil","globe.americas","person"]
+ let imagesNames = ["house.fill","square.and.pencil","globe.americas","person.fill"]
   override init(frame: CGRect) {
     super.init(frame: frame)
     collectionView.register(MenuCell.self, forCellWithReuseIdentifier: "cellId")
