@@ -9,24 +9,24 @@ import UIKit
 
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout{
   
-//  var videos : [Video] = {
-//       var KanyeChannel = Channel()
-//    KanyeChannel.name = "KanyeIsTheBestChannel"
-//    KanyeChannel.profileImageName = "kanye"
-//
-//      var blankSpaceVideo =  Video()
-//    blankSpaceVideo.thumbNailImageName =  "images-5"
-//    blankSpaceVideo.title = "Princess Taylor Queen"
-//    blankSpaceVideo.numberOfView = 2452342243
-//    blankSpaceVideo.channel = KanyeChannel
-//
-//  var badBloodVideo =  Video()
-//    badBloodVideo.thumbNailImageName =  "pix"
-//    badBloodVideo.title = "Taylor Swift - Bad blood featuring Kendrick"
-//    badBloodVideo.channel = KanyeChannel
-//    badBloodVideo.numberOfView = 63453463
-//  return [blankSpaceVideo, badBloodVideo]
-//  }()
+  //  var videos : [Video] = {
+  //       var KanyeChannel = Channel()
+  //    KanyeChannel.name = "KanyeIsTheBestChannel"
+  //    KanyeChannel.profileImageName = "kanye"
+  //
+  //      var blankSpaceVideo =  Video()
+  //    blankSpaceVideo.thumbNailImageName =  "images-5"
+  //    blankSpaceVideo.title = "Princess Taylor Queen"
+  //    blankSpaceVideo.numberOfView = 2452342243
+  //    blankSpaceVideo.channel = KanyeChannel
+  //
+  //  var badBloodVideo =  Video()
+  //    badBloodVideo.thumbNailImageName =  "pix"
+  //    badBloodVideo.title = "Taylor Swift - Bad blood featuring Kendrick"
+  //    badBloodVideo.channel = KanyeChannel
+  //    badBloodVideo.numberOfView = 63453463
+  //  return [blankSpaceVideo, badBloodVideo]
+  //  }()
   
   var videos : [Video]?
   
@@ -40,7 +40,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
       do {
         let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers)
         self.videos = [Video]()
-      
+        
         for dictionary in json as! [[String : AnyObject]] {
           let video =  Video()
           let channel = Channel()
@@ -56,16 +56,16 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
         DispatchQueue.main.async {
           self.collectionView.reloadData()
         }
-     
+        
         print(json)
       }catch  let jsonError {
-          print(jsonError)
+        print(jsonError)
       }
-    
+      
     }.resume()
     
   }
-
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     fetchData()
@@ -73,7 +73,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     navigationItem.title = "Home"
     let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width - 32, height:
                                             view.frame.height))
-    titleLabel.text = "Home"
+    titleLabel.text = "   Home"
     titleLabel.textColor = .white
     navigationItem.titleView = titleLabel
     titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
@@ -88,7 +88,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
   }
   
   let menuBar: MenuBar = {
-  let menu = MenuBar()
+    let menu = MenuBar()
     menu.backgroundColor = .red
     return menu
   }()
@@ -102,17 +102,29 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
   }
   
-  var settingLauncher = settingsLauncher()
+  //let settingLauncher = SettingsLauncher()
+  lazy var  settingLauncher : SettingsLauncher = {
+    let launcher = SettingsLauncher()
+    launcher.homeController = self
+    return launcher
+  }()
   
   @objc func handleSearch() {
     // show menu bar
     settingLauncher.showSettings()
+  
+  }
+  
+  func showSettingController(setting : Settings) {
+      let settingsController = SettingsViewController()
+    settingsController.navigationItem.title = setting.name.rawValue
+    navigationController?.pushViewController(settingsController, animated: true)
   }
   
   
   private func  setupMenuBar() {
     view.addSubview(menuBar)
-    
+    // navigationController?.hidesBarsOnSwipe = true
     menuBar.anchorWithConstantsToTop(top: view.topAnchor, left: view.leftAnchor, bottom:  view.topAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: -40, rightConstant: 0)
   }
   
@@ -127,7 +139,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-  //  let height = (view.frame.width - 16 - 16) * 9 / 16
+    //  let height = (view.frame.width - 16 - 16) * 9 / 16
     return CGSize(width: view.frame.width, height: 350)
   }
   

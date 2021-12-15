@@ -19,7 +19,7 @@ class settingsCell: BaseCell {
   
   var settingsdetails : Settings? {
     didSet {
-      nameLabel.text = settingsdetails?.name
+      nameLabel.text = settingsdetails?.name.rawValue
       if let imageName =  settingsdetails?.imageIcon{
         imageIcon.image = UIImage(systemName: imageName)?.withRenderingMode(.alwaysTemplate)
         imageIcon.tintColor = .black

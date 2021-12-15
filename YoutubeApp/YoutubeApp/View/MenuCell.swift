@@ -30,6 +30,7 @@ class MenuCell: BaseCell {
     }
   }
   
+  
   override func setupView() {
     super.setupView()
     backgroundColor = .red

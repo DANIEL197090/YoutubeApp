@@ -12,17 +12,32 @@ class MenuBar: UIView, UICollectionViewDelegateFlowLayout, UICollectionViewDeleg
   lazy var collectionView : UICollectionView = {
       let layout = UICollectionViewFlowLayout ()
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-    collectionView.backgroundColor = .blue
+    collectionView.backgroundColor = .red
     collectionView.delegate = self
     collectionView.dataSource = self
     return collectionView
   }()
- let imagesNames = ["house.fill","square.and.pencil","globe.americas","person.fill"]
+  
+  func setUpHorizontalBar() {
+      let horizontalBarView = UIView()
+    horizontalBarView.backgroundColor = .white
+    horizontalBarView.translatesAutoresizingMaskIntoConstraints = false
+    addSubview(horizontalBarView)
+    horizontalBarView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+   // horizontalBarView.topAnchor.constraint(equalTo: topAnchor, constant: 5).isActive = true
+  horizontalBarView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 5).isActive = true
+   horizontalBarView.heightAnchor.constraint(equalTo: heightAnchor, constant: 4).isActive = true
+  horizontalBarView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1/4).isActive = true
+//    horizontalBarView.anchorWithConstantsToTop(top:  topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: -10, leftConstant: 0, bottomConstant: 0, rightConstant: 0)
+  }
+  
+ let imagesNames = ["house.fill","message.fill","globe.americas.fill","person.fill"]
   override init(frame: CGRect) {
     super.init(frame: frame)
+    setUpHorizontalBar()
     collectionView.register(MenuCell.self, forCellWithReuseIdentifier: "cellId")
     addSubview(collectionView)
-    collectionView.anchorWithConstantsToTop(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0)
+    collectionView.anchorWithConstantsToTop(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 8, rightConstant: 0)
     let selectedIndexPath =  NSIndexPath(item: 0, section: 0)
     collectionView.selectItem(at: selectedIndexPath as IndexPath, animated: true, scrollPosition: .bottom)
 //    collectionView.contentInset = UIEdgeInsets(top: 50, left: 0, bottom: 0, right: 0)
