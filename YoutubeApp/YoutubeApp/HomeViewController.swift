@@ -9,60 +9,13 @@ import UIKit
 
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout{
   
-  //  var videos : [Video] = {
-  //       var KanyeChannel = Channel()
-  //    KanyeChannel.name = "KanyeIsTheBestChannel"
-  //    KanyeChannel.profileImageName = "kanye"
-  //
-  //      var blankSpaceVideo =  Video()
-  //    blankSpaceVideo.thumbNailImageName =  "images-5"
-  //    blankSpaceVideo.title = "Princess Taylor Queen"
-  //    blankSpaceVideo.numberOfView = 2452342243
-  //    blankSpaceVideo.channel = KanyeChannel
-  //
-  //  var badBloodVideo =  Video()
-  //    badBloodVideo.thumbNailImageName =  "pix"
-  //    badBloodVideo.title = "Taylor Swift - Bad blood featuring Kendrick"
-  //    badBloodVideo.channel = KanyeChannel
-  //    badBloodVideo.numberOfView = 63453463
-  //  return [blankSpaceVideo, badBloodVideo]
-  //  }()
-  
   var videos : [Video]?
   
   func fetchData(){
-    let url = NSURL(string: "https://s3-us-west-2.amazonaws.com/youtubeassets/home.json")
-    
-    URLSession.shared.dataTask(with: url! as URL) { [self] data, response, error in
-      if error != nil  {
-        print(error as Any)
-      }
-      do {
-        let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers)
-        self.videos = [Video]()
-        
-        for dictionary in json as! [[String : AnyObject]] {
-          let video =  Video()
-          let channel = Channel()
-          let channelDictionary = dictionary["channel"] as? [String: AnyObject]
-          video.title = dictionary["title"] as? String
-          video.numberOfView = dictionary["number_of_views"] as? NSNumber
-          video.thumbNailImageName = dictionary["thumbnail_image_name"] as? String
-          channel.profileImageName = channelDictionary?["profile_image_name"] as? String
-          channel.name = channelDictionary?["name"] as? String
-          video.channel = channel
-          videos?.append(video)
-        }
-        DispatchQueue.main.async {
-          self.collectionView.reloadData()
-        }
-        
-        print(json)
-      }catch  let jsonError {
-        print(jsonError)
-      }
-      
-    }.resume()
+    ApiService.sharedInstance.fetchVideos { (video: [Video]) in
+      self.videos = video
+      self.collectionView.reloadData()
+    }
     
   }
   
@@ -82,7 +35,6 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     navigationController?.navigationBar.isTranslucent =  false
     navigationController?.navigationBar.tintColor = .red
     collectionView.register(VideoCell.self, forCellWithReuseIdentifier: "CellId")
-    
     setupMenuBar()
     setupNavBarButtons()
   }
@@ -99,7 +51,6 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     let moreBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.down")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleSearch))
     navigationItem.rightBarButtonItems = [moreBarButtonItem, searchBarButtonItem]
-    
   }
   
   //let settingLauncher = SettingsLauncher()
