@@ -9,20 +9,10 @@ import UIKit
 
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout{
   
-  var videos : [Video]?
-  
-  // fetch data from api
-  func fetchData(){
-    ApiService.sharedInstance.fetchVideos { (video: [Video]) in
-      self.videos = video
-      self.collectionView.reloadData()
-    }
-    
-  }
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    fetchData()
+  
     // Do any additional setup after loading the view.
     navigationItem.title = "Home"
     let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.width - 32, height:
@@ -35,8 +25,7 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     navigationController?.navigationBar.backgroundColor = .red
     navigationController?.navigationBar.isTranslucent =  false
     navigationController?.navigationBar.tintColor = .red
-    //collectionView.register(VideoCell.self, forCellWithReuseIdentifier: "CellId")
-    collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cellId")
+    collectionView.register(FeedCell.self, forCellWithReuseIdentifier: "cellId")
     setupMenuBar()
     setupNavBarButtons()
   
@@ -117,35 +106,13 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
   
   override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath)
-    let colors : [UIColor] = [.red, .green , .yellow , .cyan]
-    cell.backgroundColor =  colors[indexPath.item]
     return cell
   }
   
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
       //  let height = (view.frame.width - 16 - 16) * 9 / 16
-      return CGSize(width: view.frame.width, height: view.frame.height)
+      return CGSize(width: view.frame.width, height: view.frame.height - 50)
     }
-  
-//
-//  override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//    return videos?.count ?? 0
-//  }
-//  override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CellId", for: indexPath) as? VideoCell else {return UICollectionViewCell()}
-//    cell.video = videos?[indexPath.row]
-//    cell.backgroundColor = .white
-//    return cell
-//  }
-//
-//  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//    //  let height = (view.frame.width - 16 - 16) * 9 / 16
-//    return CGSize(width: view.frame.width, height: 350)
-//  }
-//
-//  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-//    return 0
-//  }
   
 }
 

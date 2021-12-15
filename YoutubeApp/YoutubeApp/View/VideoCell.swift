@@ -13,18 +13,18 @@ class VideoCell : BaseCell {
     didSet {
       titleLabel.text = video?.title
       setupThumbNailImage()
-     // thumbnailImageView.image = UIImage(named: (video?.thumbNailImageName)!)
-       setupProfileImage()
-//      if let profileImageName =  video?.channel?.profileImageName {
-//        profileImageView.image = UIImage(named: (profileImageName))
-//      }
+      // thumbnailImageView.image = UIImage(named: (video?.thumbNailImageName)!)
+      setupProfileImage()
+      //      if let profileImageName =  video?.channel?.profileImageName {
+      //        profileImageView.image = UIImage(named: (profileImageName))
+      //      }
       
       if let channelName = video?.channel?.name, let numberOfViews = video?.numberOfView {
-      let numberFormatter  =  NumberFormatter()
+        let numberFormatter  =  NumberFormatter()
         numberFormatter.numberStyle = .decimal
         let subtitleText = "\(String(describing: channelName)) · \(numberFormatter.string(from: numberOfViews)!) views · 2 years ago  "
-      subTitleLabel.text = subtitleText
-    }
+        subTitleLabel.text = subtitleText
+      }
     }
   }
   
@@ -35,15 +35,14 @@ class VideoCell : BaseCell {
     }
   }
   
-  
   //  set up Thumb Nail Image
   func  setupThumbNailImage(){
     if let thumbNailImageUrl = video?.thumbNailImageName {
       thumbnailImageView.loadImageUsingUrlString(urlString: thumbNailImageUrl)
     }
   }
-  var identifier = "cellId"
   
+  var identifier = "cellId"
   lazy var thumbnailImageView : customImageView  = {
     let imageView =  customImageView()
     imageView.layer.cornerRadius = 10
@@ -94,8 +93,8 @@ class VideoCell : BaseCell {
     addSubview(profileImageView)
     addSubview(titleLabel)
     addSubview(subTitleLabel)
-      thumbnailImageView.anchorWithConstantsToTop(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 50, leftConstant: 16, bottomConstant: 80, rightConstant: 16)
-  
+    thumbnailImageView.anchorWithConstantsToTop(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 50, leftConstant: 16, bottomConstant: 80, rightConstant: 16)
+    
     seperatorView .anchorWithConstantsToTop(top:  thumbnailImageView.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 65, leftConstant: 0, bottomConstant: 10, rightConstant: 0)
     
     profileImageView.anchorWithConstantsToTop(top: thumbnailImageView.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right:  titleLabel.leftAnchor, topConstant: 10, leftConstant: 16, bottomConstant: 20, rightConstant: 10)
@@ -104,7 +103,7 @@ class VideoCell : BaseCell {
     
     subTitleLabel.anchorWithConstantsToTop(top: thumbnailImageView.bottomAnchor, left: leftAnchor, bottom:  bottomAnchor, right: rightAnchor, topConstant: 30, leftConstant: 60, bottomConstant: 20, rightConstant: 16)
   }
-
+  
 }
 
 
