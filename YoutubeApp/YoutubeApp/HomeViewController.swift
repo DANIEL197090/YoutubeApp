@@ -26,6 +26,8 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     navigationController?.navigationBar.isTranslucent =  false
     navigationController?.navigationBar.tintColor = .red
     collectionView.register(FeedCell.self, forCellWithReuseIdentifier: "cellId")
+    collectionView.register(TrendingCell.self, forCellWithReuseIdentifier: "trendingCellId")
+    collectionView.register(SubscriptionCell.self, forCellWithReuseIdentifier: "SubscriptionCellId")
     setupMenuBar()
     setupNavBarButtons()
     
@@ -113,6 +115,11 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
   }
   
   override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    if indexPath.item  == 1 {
+       return collectionView.dequeueReusableCell(withReuseIdentifier: "trendingCellId", for: indexPath)
+    } else if indexPath.item == 2 {
+      return collectionView.dequeueReusableCell(withReuseIdentifier: "SubscriptionCellId", for: indexPath)
+    }
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath)
     return cell
   }
