@@ -65,14 +65,8 @@ class MenuBar: UIView, UICollectionViewDelegateFlowLayout, UICollectionViewDeleg
   }
   
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    //    let x = CGFloat(indexPath.item) * frame.width / 4
-    //    horizontalBarLeftAnchorConstraint?.constant = x
-    //    UIView.animate(withDuration: 0.55, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-    //      self.layoutIfNeeded()
-    //    }, completion: nil)
-    //print(x)
     homeController?.scrollToMenuIndex(menuIndex: indexPath.item)
-    
+   
   }
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
