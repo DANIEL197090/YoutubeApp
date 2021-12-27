@@ -19,7 +19,7 @@ class VideoCell : BaseCell {
       //        profileImageView.image = UIImage(named: (profileImageName))
       //      }
       
-      if let channelName = video?.channel?.name, let numberOfViews = video?.numberOfView {
+      if let channelName = video?.channel?.name, let numberOfViews = video?.number_of_views {
         let numberFormatter  =  NumberFormatter()
         numberFormatter.numberStyle = .decimal
         let subtitleText = "\(String(describing: channelName)) · \(numberFormatter.string(from: numberOfViews)!) views · 2 years ago  "
@@ -37,7 +37,7 @@ class VideoCell : BaseCell {
   
   //  set up Thumb Nail Image
   func  setupThumbNailImage(){
-    if let thumbNailImageUrl = video?.thumbNailImageName {
+    if let thumbNailImageUrl = video?.thumbnail_image_name {
       thumbnailImageView.loadImageUsingUrlString(urlString: thumbNailImageUrl)
     }
   }

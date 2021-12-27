@@ -9,7 +9,6 @@ import UIKit
 
 class TrendingCell: FeedCell {
   override func fetchData() {
-      print("nice")
       ApiService.sharedInstance.fetchTrendingVideos {  (video: [Video]) in
         self.videos = video
         self.collectionView.reloadData()

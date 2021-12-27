@@ -20,7 +20,7 @@ class MenuCell: BaseCell {
   
   override var isHighlighted: Bool {
     didSet {
-      imageView.tintColor = isHighlighted ? .white : .gray
+      imageView.tintColor = isHighlighted ? .white : .yellow
     }
   }
   
@@ -29,8 +29,7 @@ class MenuCell: BaseCell {
       imageView.tintColor = isSelected ? .white : .gray
     }
   }
-  
-  
+
   override func setupView() {
     super.setupView()
     backgroundColor = .red

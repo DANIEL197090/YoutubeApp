@@ -18,6 +18,7 @@ class MenuBar: UIView, UICollectionViewDelegateFlowLayout, UICollectionViewDeleg
     return collectionView
   }()
   var horizontalBarLeftAnchorConstraint: NSLayoutConstraint?
+  
   func setUpHorizontalBar() {
     let horizontalBarView = UIView()
     horizontalBarView.backgroundColor = .white
